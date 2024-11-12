@@ -7,6 +7,7 @@ from sqlalchemy.pool import StaticPool
 from fm_fastapi.app import app
 from fm_fastapi.database import get_session
 from fm_fastapi.models import User, table_registry
+from fm_fastapi.security import get_password_hash
 
 
 @pytest.fixture
@@ -24,8 +25,8 @@ def client(session):
 @pytest.fixture
 def session():
     engine = create_engine(
-        'sqlite:///:memory:',
-        connect_args={'check_same_thread': False},
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
     table_registry.metadata.create_all(engine)
@@ -38,9 +39,14 @@ def session():
 
 @pytest.fixture
 def user(session):
-    user = User(username='Felipe', email='felipe@teste.com', password='password')
+    pwd = "testtest"
+    user = User(
+        username="Felipe", email="felipe@teste.com", password=get_password_hash(pwd)
+    )
     session.add(user)
     session.commit()
     session.refresh(user)
+
+    user.clean_password = pwd
 
     return user
