@@ -32,5 +32,4 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    access_token: str
-    token_type: str
+    username: str | None = None
