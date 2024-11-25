@@ -17,7 +17,7 @@ from fm_fastapi.settings import Settings
 
 pwd_context = PasswordHash.recommended()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='auth/token')
-settings = Settings()
+settings = Settings()  # type: ignore
 
 
 def create_access_token(data: dict):
