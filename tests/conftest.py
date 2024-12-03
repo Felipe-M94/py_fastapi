@@ -7,12 +7,12 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
-from sqlalchemy.pool import StaticPool
 
 from fm_fastapi.app import app
 from fm_fastapi.database import get_session
 from fm_fastapi.models import Todo, TodoState, User, table_registry
 from fm_fastapi.security import get_password_hash
+from fm_fastapi.settings import Settings
 
 
 @pytest.fixture
@@ -29,11 +29,7 @@ def client(session):
 
 @pytest.fixture
 def session():
-    engine = create_engine(
-        'sqlite:///:memory:',
-        connect_args={'check_same_thread': False},
-        poolclass=StaticPool,
-    )
+    engine = create_engine(Settings().DATABASE_URL)  # type: ignore
     table_registry.metadata.create_all(engine)
 
     with Session(engine) as session:
