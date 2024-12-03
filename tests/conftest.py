@@ -7,12 +7,12 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session
+from testcontainers.postgres import PostgresContainer
 
 from fm_fastapi.app import app
 from fm_fastapi.database import get_session
 from fm_fastapi.models import Todo, TodoState, User, table_registry
 from fm_fastapi.security import get_password_hash
-from fm_fastapi.settings import Settings
 
 
 @pytest.fixture
@@ -27,13 +27,22 @@ def client(session):
     app.dependency_overrides.clear()
 
 
+@pytest.fixture(scope='session')
+def engine():
+    with PostgresContainer('postgres:17', driver='psycopg') as postgres:
+        _engine = create_engine(postgres.get_connection_url())
+
+        with _engine.begin():
+            yield _engine
+
+
 @pytest.fixture
-def session():
-    engine = create_engine(Settings().DATABASE_URL)  # type: ignore
+def session(engine):
     table_registry.metadata.create_all(engine)
 
     with Session(engine) as session:
         yield session
+        session.rollback()
 
     table_registry.metadata.drop_all(engine)
 
