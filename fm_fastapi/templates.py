@@ -25,6 +25,7 @@ def render_homepage() -> str:
         <h1>Bem-vindo à API FastAPI</h1>
         <p>Esta API está funcionando corretamente!</p>
         <p>Use as rotas para explorar diferentes funcionalidades.</p>
+        <p>Para acessar a documentação: /docs</p>
     </body>
     </html>
     """
