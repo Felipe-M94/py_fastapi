@@ -6,7 +6,7 @@ ENV POETRY_VIRTUALENVS_CREATE=false
 # Definindo o diretório de trabalho
 WORKDIR /app
 
-# Copiando os arquivos do projeto
+# Copiando os arquivos do projeto para o contêiner
 COPY . .
 
 # Instalando o Poetry
@@ -18,8 +18,11 @@ RUN poetry config installer.max-workers 10
 # Instalando as dependências do projeto
 RUN poetry install --no-interaction --no-ansi
 
+# Tornando o entrypoint.sh executável
+RUN chmod +x /app/entrypoint.sh
+
 # Expondo a porta 8000
 EXPOSE 8000
 
-# Comando para iniciar o FastAPI usando Uvicorn
-CMD ["poetry", "run", "uvicorn", "fm_fastapi.app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Definindo o entrypoint para o script de inicialização
+ENTRYPOINT ["/app/entrypoint.sh"]
