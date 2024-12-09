@@ -1,6 +1,8 @@
-# Py FastAPI
+# FastAPI-FM
 
-**Py FastAPI** é uma aplicação backend construída com **FastAPI**, oferecendo uma solução robusta para a criação de APIs RESTful. O projeto utiliza **PostgreSQL** como banco de dados, gerenciado via Docker, e integra **SQLAlchemy** como ORM, com suporte a migrações usando **Alembic**. A autenticação é implementada com **JWT**, e a validação de dados é feita com **Pydantic**.
+**FastAPI-FM** é uma aplicação backend construída com **FastAPI**, oferecendo uma solução robusta para a criação de APIs RESTful. O projeto utiliza **PostgreSQL** como banco de dados, gerenciado via Docker, e integra **SQLAlchemy** como ORM, com suporte a migrações usando **Alembic**. A autenticação é implementada com **JWT**, e a validação de dados é feita com **Pydantic**.
+
+Acesse a documentação interativa da API [aqui](https://fastapi-fm-13.fly.dev/docs).
 
 ## Funcionalidades Principais
 
@@ -9,6 +11,7 @@
 - **Alembic** para migrações do banco de dados.
 - **JWT** para autenticação segura.
 - **Docker Compose** para orquestrar containers, incluindo o **PostgreSQL**.
+- **Fly.io** Deploy automatizado na plataforma.
 - **Pydantic** para validação de dados e configurações.
 - **Ruff** para linting e **pytest** para testes automatizados.
 
