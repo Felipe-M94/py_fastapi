@@ -22,7 +22,7 @@ def render_homepage() -> str:
         </style>
     </head>
     <body>
-        <h1>Bem-vindo à API FastAPI</h1>
+        <h1>Bem-vindo à FastAPI-FM</h1>
         <p>Esta API está funcionando corretamente!</p>
         <p>Use as rotas para explorar diferentes funcionalidades.</p>
         <p>Para acessar a documentação: /docs</p>
